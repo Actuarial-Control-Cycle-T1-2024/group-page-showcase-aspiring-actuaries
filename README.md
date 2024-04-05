@@ -23,4 +23,4 @@ For these differentiated groups of people, mortality and lapse rates were estima
 
 Initial premiums were calculated by ensuring a profit margin of 8\%. Premium prices were not changed after the supposed implementation of our proposed program. 
 
-More details can be seen in the [Model & Pricing Excel worksheet](Model & Pricing.xlsm).
+More details can be seen in the [Model & Pricing Excel worksheet](model_pricing.xlsm).
