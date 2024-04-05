@@ -1,0 +1,232 @@
+---
+title: "Mortality"
+author: "Yuchi Zhang"
+date: "2024-03-08"
+output: html_document
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+library("writexl")
+```
+
+```{r}
+mort_data <- read.csv("2024-srcsc-superlife-inforce-dataset.csv")
+names(mort_data) <- mort_data[3,]
+mort_data <- tail(mort_data, -3)
+
+weird_data <- mort_data[mort_data$Cause.of.Death == "" & mort_data$Death.indicator == 1,]
+mort_data <- anti_join(mort_data, weird_data)
+```
+
+```{r}
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, mort_data$Lapse.Indicator == 'Y', 1)
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, is.na(mort_data$Lapse.Indicator),0)
+mort_data$Death.indicator <- replace(mort_data$Death.indicator, is.na(mort_data$Death.indicator),0)
+
+
+mort_data$Issue.age <- as.integer(mort_data$Issue.age)
+mort_data$Issue.year <- as.numeric(mort_data$Issue.year)
+mort_data$Year.of.Death <- as.numeric(mort_data$Year.of.Death)
+mort_data$Year.of.Lapse <- as.numeric(mort_data$Year.of.Lapse)
+```
+
+```{r}
+T20_data <- mort_data %>% filter(Policy.type == "T20")
+
+SPWL_data <- mort_data %>% filter(Policy.type == "SPWL")
+```
+
+
+```{r}
+death_data <- mort_data %>% filter(Death.indicator == 1) %>% mutate(Duration = 
+                                                                  Year.of.Death -Issue.year)
+lapsed_data <- mort_data %>% filter(Lapse.Indicator == 1) %>% mutate(Duration = 
+                                                                  Year.of.Lapse - Issue.year)
+```
+
+## Age of death
+
+```{r}
+death_data <- death_data %>% mutate('Age.at.Death' = Duration + Issue.age)
+ggplot(death_data, aes(Age.at.Death)) +
+  geom_bar(fill = "#0073C2FF")
+```
+
+
+## Mortality rates from data
+
+```{r}
+mort_rate <- function(age) {
+  dead <- death_data %>% filter(Age.at.Death == age)
+  dead_after <- death_data %>% filter(Issue.age <= age) %>% filter(Age.at.Death > age)
+  lapsed <- lapsed_data %>% filter(Issue.age <= age) %>% filter(Year.of.Lapse - Issue.year + Issue.age >= age)
+  alive <- mort_data %>% filter(Issue.age <= age) %>% filter(Lapse.Indicator != 1) %>% filter(Death.indicator != 1) %>% filter(2024 - Issue.year + Issue.age >= age)
+  death <- nrow(dead)
+  total <- death + nrow(alive) + nrow(lapsed) + nrow(dead_after)
+  return(death/total)
+}
+```
+
+```{r}
+mortality <- data.frame()
+for (age in 26:65){
+  row <- data.frame(age, mort_rate(age))
+  mortality <- rbind(mortality,row)
+}
+names(mortality) <- c('Age', 'Mortality')
+plot(mortality)
+mortality.lo <- loess(Mortality ~ Age, mortality)
+mortality_smooth <- data.frame(Age = seq(26, 65, 1))
+mortality_smooth$Mortality <- predict(mortality.lo, data.frame(Age = seq(26, 65, 1)))
+mortality_smooth
+```
+
+
+```{r}
+mortality_given <- read.csv("Lumaria-mortality.csv")
+```
+
+```{r}
+plot(mortality_given, col='red', type = 'l', lwd = 2)
+lines(mortality_smooth, col='blue', lwd = 2)
+legend(25,0.010, legend=c("Given", "Calculated"),
+       col=c('red', 'blue'), lty=1, cex=0.8, lwd = 2)
+```
+
+```{r}
+mort_rate_male <- function(age) {
+  dead <- death_data %>% filter(Age.at.Death == age) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  dead_after <- death_data %>% filter(Issue.age <= age) %>% filter(Age.at.Death > age) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  lapsed <- lapsed_data %>% filter(Issue.age <= age) %>% filter(Year.of.Lapse - Issue.year + Issue.age >= age) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  alive <- mort_data %>% filter(Issue.age <= age) %>% filter(Lapse.Indicator != 1) %>% filter(Death.indicator != 1) %>% filter(2024 - Issue.year + Issue.age >= age) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  death <- nrow(dead)
+  total <- death + nrow(alive) + nrow(lapsed) + nrow(dead_after)
+  return(death/total)
+}
+```
+
+```{r}
+mortality_male <- data.frame()
+for (age in 26:65){
+  row <- data.frame(age, mort_rate_male(age))
+  mortality_male <- rbind(mortality_male,row)
+}
+names(mortality_male) <- c('Age', 'Mortality')
+mortality_male.lo <- loess(Mortality ~ Age, mortality_male)
+mortality_male_smooth <- data.frame(Age = seq(26, 65, 1))
+mortality_male_smooth$Mortality <- predict(mortality_male.lo, data.frame(Age = seq(26, 65, 1)))
+mortality_male_smooth
+```
+
+```{r}
+mort_rate_female <- function(age) {
+  dead <- death_data %>% filter(Age.at.Death == age) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  dead_after <- death_data %>% filter(Issue.age <= age) %>% filter(Age.at.Death > age) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  lapsed <- lapsed_data %>% filter(Issue.age <= age) %>% filter(Year.of.Lapse - Issue.year + Issue.age >= age) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  alive <- mort_data %>% filter(Issue.age <= age) %>% filter(Lapse.Indicator != 1) %>% filter(Death.indicator != 1) %>% filter(2024 - Issue.year + Issue.age >= age) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  death <- nrow(dead)
+  total <- death + nrow(alive) + nrow(lapsed) + nrow(dead_after)
+  return(death/total)
+}
+```
+
+```{r}
+mortality_female <- data.frame()
+for (age in 26:65){
+  row <- data.frame(age, mort_rate_female(age))
+  mortality_female <- rbind(mortality_female,row)
+}
+names(mortality_female) <- c('Age', 'Mortality')
+mortality_female.lo <- loess(Mortality ~ Age, mortality_female)
+mortality_female_smooth <- data.frame(Age = seq(26, 65, 1))
+mortality_female_smooth$Mortality <- predict(mortality_female.lo, data.frame(Age = seq(26, 65, 1)))
+mortality_female_smooth
+```
+
+```{r}
+plot(mortality_given, type = 'l', col = 'black', lwd = 2)
+lines(mortality_female_smooth, col = 'red', lwd = 2)
+lines(mortality_male_smooth, col = 'blue', lwd = 2)
+lines(mortality_smooth, col = 'darkgreen', lwd = 2)
+legend(25,0.010, legend=c("Given", "Calculated", "Calculated Male NS", "Calculated Female NS"),
+       col=c("black", "darkgreen", 'blue', 'red'), lty=1, cex=0.8, lwd = 2)
+```
+
+```{r}
+mort_rate_smoker <- function(age) {
+  dead <- death_data %>% filter(Age.at.Death == age) %>% filter(Smoker.Status == 'S')
+  dead_after <- death_data %>% filter(Issue.age <= age) %>% filter(Age.at.Death > age) %>% filter(Smoker.Status == 'S')
+  lapsed <- lapsed_data %>% filter(Issue.age <= age) %>% filter(Year.of.Lapse - Issue.year + Issue.age >= age) %>% filter(Smoker.Status == 'S')
+  alive <- mort_data %>% filter(Issue.age <= age) %>% filter(Lapse.Indicator != 1) %>% filter(Death.indicator != 1) %>% filter(2024 - Issue.year + Issue.age >= age) %>% filter(Smoker.Status == 'S')
+  death <- nrow(dead)
+  total <- death + nrow(alive) + nrow(lapsed) + nrow(dead_after)
+  return(death/total)
+}
+```
+
+```{r}
+mortality_smoker <- data.frame()
+for (age in 26:65){
+  row <- data.frame(age, mort_rate_smoker(age))
+  mortality_smoker <- rbind(mortality_smoker,row)
+}
+names(mortality_smoker) <- c('Age', 'Mortality')
+mortality_smoker.lo <- loess(Mortality ~ Age, mortality_smoker)
+mortality_smoker_smooth <- data.frame(Age = seq(26, 65, 1))
+mortality_smoker_smooth$Mortality <- predict(mortality_smoker.lo, data.frame(Age = seq(26, 65, 1)))
+mortality_smoker_smooth
+```
+
+```{r}
+plot(mortality_smoker_smooth, type = 'l', col = 'blue', lwd = 2)
+lines(mortality_smooth, col = 'red', lwd = 2)
+```
+
+```{r}
+mort_rate_high_risk <- function(age) {
+  dead <- death_data %>% filter(Age.at.Death == age) %>% filter(Underwriting.Class == 'high risk' | Underwriting.Class == 'moderate risk') %>% filter(Smoker.Status == 'NS')
+  dead_after <- death_data %>% filter(Issue.age <= age) %>% filter(Age.at.Death > age) %>% filter(Underwriting.Class == 'high risk' | Underwriting.Class == 'moderate risk')%>% filter(Smoker.Status == 'NS')
+  lapsed <- lapsed_data %>% filter(Issue.age <= age) %>% filter(Year.of.Lapse - Issue.year + Issue.age >= age) %>% filter(Underwriting.Class == 'high risk'| Underwriting.Class == 'moderate risk') %>% filter(Smoker.Status == 'NS')
+  alive <- mort_data %>% filter(Issue.age <= age) %>% filter(Lapse.Indicator != 1) %>% filter(Death.indicator != 1) %>% filter(2024 - Issue.year + Issue.age >= age) %>% filter(Underwriting.Class == 'high risk'| Underwriting.Class == 'moderate risk') %>% filter(Smoker.Status == 'NS')
+  death <- nrow(dead)
+  total <- death + nrow(alive) + nrow(lapsed) + nrow(dead_after)
+  return(death/total)
+}
+```
+
+```{r}
+mortality_high_risk <- data.frame()
+for (age in 26:65){
+  row <- data.frame(age, mort_rate_high_risk(age))
+  mortality_high_risk <- rbind(mortality_high_risk,row)
+}
+names(mortality_high_risk) <- c('Age', 'Mortality')
+mortality_high_risk.lo <- loess(Mortality ~ Age, mortality_high_risk)
+mortality_high_risk_smooth <- data.frame(Age = seq(26, 65, 1))
+mortality_high_risk_smooth$Mortality <- predict(mortality_high_risk.lo, data.frame(Age = seq(26, 65, 1)))
+mortality_high_risk_smooth
+```
+
+
+```{r}
+plot(mortality_smooth, type = 'l', col = 'blue', lwd = 2)
+lines(mortality_high_risk_smooth, col = 'red', lwd = 2)
+```
+## Exporting required rates
+
+```{r}
+required_rates<- mortality_smoker_smooth
+required_rates$Male_Non_Smoker <- mortality_male_smooth$Mortality
+required_rates$Female_Non_Smoker <- mortality_female_smooth$Mortality
+names(required_rates)[2] <- 'Smoker'
+required_rates
+```
+
+```{r}
+# write_xlsx(required_rates, "C:\\Users\\leoyz\\Desktop\\Mortality Rates from Data.xlsx")
+```
+
+
+
+
