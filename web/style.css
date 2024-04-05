@@ -7,6 +7,10 @@ body {
     color: #39464e;
 }
 
+h2 {
+    padding-bottom: 40px;
+}
+
 .navbar-default {
     background-color: #FFF;
     margin-left: 200px;
