@@ -2,6 +2,8 @@
 
 **Aspiring Actuaries**: Jinil Patel, Melissa Renard, Jason Zhang, Ricky Zhang, Yuchi Zhang
 
+Landing page: https://actuarial-control-cycle-t1-2024.github.io/group-page-showcase-aspiring-actuaries/
+
 ## Background and program
 
 We have been asked to develop a health incentive program that SuperLife can pair with its longer- term life insurance products. SuperLife are looking to improve its policyholders’ expected mortality once the policyholder has purchased an insurance policy. We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives.
