@@ -10,9 +10,9 @@ We have been asked to develop a health incentive program that SuperLife can pair
 
 ## Key insights
 - The incentive programs led to a decrease in mortality and ultimately led to an increase in profits for SuperLife.
-## Data
 
-## Data cleaning
+## Data and data cleaning
+The next stage of our project consisted on cleaning and preparing the data provided by SuperLife in preparation for modeling and analysis. We primarily focused on the SuperLife Inforce Dataset in conjunction with the Lumaria mortality table to model mortality. In terms of pricing, we utilised the economic data of Lumaria together with the interventions table and external research on comparable economies and health insurance companies to estimate the mortality improvement and revenue and expenses associated with our health incentive program.
 
 ## Model \& pricing
 
