@@ -38,6 +38,11 @@ Overall, the proposed health incentive program shows promising potential to redu
 The next stage of our project consisted on cleaning and preparing the data provided by SuperLife in preparation for modeling and analysis. We primarily focused on the SuperLife Inforce Dataset in conjunction with the Lumaria mortality table to model mortality. In terms of pricing, we utilised the economic data of Lumaria together with the interventions table and external research on comparable economies and health insurance companies to estimate the mortality improvement and revenue and expenses associated with our health incentive program.
 
 ## Data cleaning
+**Guide for R code**
+- [EDA.Rmd](<R code/EDA.Rmd>): Exploratory data analysis on the inforce dataset.
+- [Lapse rates.Rmd](<R code/Lapse rates.Rmd>): Calculations of the lapse rates for each type of policyholder using the inforce dataset, output stored in [Lapse Rates from Data.xlsx](<Data/Lapse Rates from Data.xlsx>). 
+- [Mortality.Rmd](<R code/Mortality.Rmd>): Calculations of mortality rates for each type of policyholder using the inforce dataset, output stored in [Mortality Rates from data.xlsx](<Data/Mortality Rates from data.xlsx>). 
+- [Policy count.Rmd](<R code/Policy Count.Rmd>): Counts the number of each type of policyholder with each level of benefit in the inforce dataset, output stored in [Policy count.xlsx](<Data/Policy count.xlsx>).
 
 ## Model \& pricing
 
