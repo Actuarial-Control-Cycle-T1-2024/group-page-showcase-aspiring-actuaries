@@ -34,8 +34,10 @@ We have been asked to develop a health incentive program that SuperLife can pair
 
 Overall, the proposed health incentive program shows promising potential to reduce mortality rates, increase policyholder engagement, and significantly enhance SuperLife's profitability over the long term. However, careful consideration of assumptions, risk mitigation strategies, and data limitations is crucial for effective implementation and monitoring of the program's success.
 
-## Data and data cleaning
+## Data
 The next stage of our project consisted on cleaning and preparing the data provided by SuperLife in preparation for modeling and analysis. We primarily focused on the SuperLife Inforce Dataset in conjunction with the Lumaria mortality table to model mortality. In terms of pricing, we utilised the economic data of Lumaria together with the interventions table and external research on comparable economies and health insurance companies to estimate the mortality improvement and revenue and expenses associated with our health incentive program.
+
+## Data cleaning
 
 ## Model \& pricing
 
