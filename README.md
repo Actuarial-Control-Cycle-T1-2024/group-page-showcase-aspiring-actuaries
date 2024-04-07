@@ -12,7 +12,7 @@ SuperLife is one of the major life insurance companies of Lumaria. We have been 
 - Increase product marketability and competitiveness
 - Add economic value to SuperLife
 
-We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives. This proposal and insights have been delivered in a [report](Aspiring-Actuaries-Report.pdf)
+We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives. This proposal and insights have been delivered in the form of a [report]("Aspiring Actuaries Report.pdf").
 
 ## Key insights
 
