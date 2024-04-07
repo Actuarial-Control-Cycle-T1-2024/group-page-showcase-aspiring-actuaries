@@ -1,0 +1,137 @@
+---
+title: "4001 Project Analysis"
+author: "Yuchi Zhang"
+date: "2024-02-27"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library("writexl")
+```
+
+```{r}
+mort_data <- read.csv("2024-srcsc-superlife-inforce-dataset.csv")
+names(mort_data) <- mort_data[3,]
+mort_data <- tail(mort_data, -3)
+
+weird_data <- mort_data[mort_data$Cause.of.Death == "" & mort_data$Death.indicator == 1,]
+mort_data <- anti_join(mort_data, weird_data)
+```
+
+
+```{r}
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, mort_data$Lapse.Indicator == 'Y', 1)
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, is.na(mort_data$Lapse.Indicator),0)
+mort_data$Death.indicator <- replace(mort_data$Death.indicator, is.na(mort_data$Death.indicator),0)
+
+
+mort_data$Issue.age <- as.integer(mort_data$Issue.age)
+mort_data$Issue.year <- as.numeric(mort_data$Issue.year)
+mort_data$Year.of.Death <- as.numeric(mort_data$Year.of.Death)
+mort_data$Year.of.Lapse <- as.numeric(mort_data$Year.of.Lapse)
+```
+
+```{r}
+T20_data <- mort_data %>% filter(Policy.type == "T20")
+
+SPWL_data <- mort_data %>% filter(Policy.type == "SPWL")
+```
+
+
+## T20
+
+```{r}
+T20_smoker_26to35 <- T20_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age <= 35) %>% count(Face.amount)
+T20_smoker_36to45 <- T20_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age >= 36 & Issue.age <= 45) %>% count(Face.amount)
+T20_smoker_46to55 <- T20_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age >= 46 & Issue.age <= 55)  %>% count(Face.amount)
+```
+
+```{r}
+T20_maleNS_26to35 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age <= 35) %>% filter(Sex == 'M')  %>% count(Face.amount)
+T20_maleNS_36to45 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 36 & Issue.age <= 45) %>% filter(Sex == 'M') %>% count(Face.amount)
+T20_maleNS_46to55 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 46 & Issue.age <= 55) %>% filter(Sex == 'M') %>% count(Face.amount) 
+```
+
+```{r}
+T20_femaleNS_26to35 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age <= 35) %>% filter(Sex == 'F') %>% count(Face.amount)
+T20_femaleNS_36to45 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 36 & Issue.age <= 45) %>% filter(Sex == 'F') %>% count(Face.amount)
+T20_femaleNS_46to55 <- T20_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 46 & Issue.age <= 55) %>% filter(Sex == 'F') %>% count(Face.amount)
+```
+
+```{r}
+T20_smoker <- T20_smoker_26to35
+T20_smoker$`36-45` <- T20_smoker_36to45$n
+T20_smoker$`46-55` <- T20_smoker_46to55$n
+names(T20_smoker) <- c("Face.amount","26-35", "35-45", "46-55")
+T20_smoker
+```
+```{r}
+T20_maleNS <- T20_maleNS_26to35
+T20_maleNS$`36-45` <- T20_maleNS_36to45$n
+T20_maleNS$`46-55` <- T20_maleNS_46to55$n
+names(T20_maleNS) <- c("Face.amount","26-35", "35-45", "46-55")
+T20_maleNS
+```
+```{r}
+T20_femaleNS <- T20_femaleNS_26to35
+T20_femaleNS$`36-45` <- T20_femaleNS_36to45$n
+T20_femaleNS$`46-55` <- T20_femaleNS_46to55$n
+names(T20_femaleNS) <- c("Face.amount","26-35", "35-45", "46-55")
+T20_femaleNS
+```
+
+
+## SPWL
+
+```{r}
+SPWL_smoker_36to45 <- SPWL_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age >= 35 & Issue.age <= 45) %>% count(Face.amount)
+SPWL_smoker_46to55 <- SPWL_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age >= 46 & Issue.age <= 55) %>% count(Face.amount)
+SPWL_smoker_56to65 <- SPWL_data %>% filter(Smoker.Status == "S") %>% filter(Issue.age >= 56) %>% count(Face.amount)
+
+```
+
+```{r}
+SPWL_maleNS_36to45 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 35 & Issue.age <= 45) %>% filter(Sex == 'M') %>% count(Face.amount)
+SPWL_maleNS_46to55 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 46 & Issue.age <= 55) %>% filter(Sex == 'M') %>% count(Face.amount)
+SPWL_maleNS_56to65 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >=56) %>% filter(Sex == 'M') %>% count(Face.amount)
+```
+
+```{r}
+SPWL_femaleNS_36to45 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 35 & Issue.age <= 45) %>% filter(Sex == 'F') %>% count(Face.amount)
+SPWL_femaleNS_46to55 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 46 & Issue.age <= 55) %>% filter(Sex == 'F') %>% count(Face.amount)
+SPWL_femaleNS_56to65 <- SPWL_data %>% filter(Smoker.Status == "NS") %>% filter(Issue.age >= 56) %>% filter(Sex == 'F') %>% count(Face.amount)
+```
+
+```{r}
+SPWL_smoker <- SPWL_smoker_36to45
+SPWL_smoker$`46-55` <- SPWL_smoker_46to55$n
+SPWL_smoker$`56-65` <- SPWL_smoker_56to65$n
+names(SPWL_smoker) <- c("Face.amount","35-45", "46-55", "56-65")
+SPWL_smoker
+```
+```{r}
+SPWL_maleNS <- SPWL_maleNS_36to45
+SPWL_maleNS$`46-55` <- SPWL_maleNS_46to55$n
+SPWL_maleNS$`56-65` <- SPWL_maleNS_56to65$n
+names(SPWL_maleNS) <- c("Face.amount","35-45", "46-55", "56-65")
+SPWL_maleNS
+```
+```{r}
+SPWL_femaleNS <- SPWL_femaleNS_36to45
+SPWL_femaleNS$`46-55` <- SPWL_femaleNS_46to55$n
+SPWL_femaleNS$`56-65` <- SPWL_femaleNS_56to65$n
+names(SPWL_femaleNS) <- c("Face.amount","35-45", "46-55", "56-65")
+SPWL_femaleNS
+```
+
+```{r}
+# write_xlsx(T20_smoker, "C:\\Users\\leoyz\\Desktop\\Policy Count.xlsx")
+# write_xlsx(T20_maleNS, "C:\\Users\\leoyz\\Desktop\\Policy Count2.xlsx")
+# write_xlsx(T20_femaleNS, "C:\\Users\\leoyz\\Desktop\\Policy Count3.xlsx")
+# write_xlsx(SPWL_smoker, "C:\\Users\\leoyz\\Desktop\\Policy Count4.xlsx")
+# write_xlsx(SPWL_maleNS, "C:\\Users\\leoyz\\Desktop\\Policy Count5.xlsx")
+# write_xlsx(SPWL_femaleNS, "C:\\Users\\leoyz\\Desktop\\Policy Count6.xlsx")
+```
+

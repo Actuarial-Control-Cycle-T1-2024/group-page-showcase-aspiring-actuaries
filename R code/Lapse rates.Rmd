@@ -1,0 +1,179 @@
+---
+title: "4001 Project Analysis"
+author: "Yuchi Zhang"
+date: "2024-02-27"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library("writexl")
+```
+
+```{r}
+mort_data <- read.csv("2024-srcsc-superlife-inforce-dataset.csv")
+names(mort_data) <- mort_data[3,]
+mort_data <- tail(mort_data, -3)
+
+weird_data <- mort_data[mort_data$Cause.of.Death == "" & mort_data$Death.indicator == 1,]
+mort_data <- anti_join(mort_data, weird_data)
+```
+
+```{r}
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, mort_data$Lapse.Indicator == 'Y', 1)
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, is.na(mort_data$Lapse.Indicator),0)
+mort_data$Death.indicator <- replace(mort_data$Death.indicator, is.na(mort_data$Death.indicator),0)
+
+
+mort_data$Issue.age <- as.integer(mort_data$Issue.age)
+mort_data$Issue.year <- as.numeric(mort_data$Issue.year)
+mort_data$Year.of.Death <- as.numeric(mort_data$Year.of.Death)
+mort_data$Year.of.Lapse <- as.numeric(mort_data$Year.of.Lapse)
+```
+
+```{r}
+T20_data <- mort_data %>% filter(Policy.type == "T20")
+
+SPWL_data <- mort_data %>% filter(Policy.type == "SPWL")
+```
+
+## lapse rate
+
+```{r}
+in_force_T20 <- function(duration){
+  lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year >= duration)
+  death <- T20_data %>% filter(Death.indicator == '1') %>% filter(Year.of.Death - Issue.year >= duration)
+  in_force <- T20_data %>% filter(Death.indicator != '1' & Lapse.Indicator != '1') %>% filter(2024 - Issue.year >= duration)
+  num_inforce <- nrow(lapsed) + nrow(death) + nrow(in_force)
+  return (num_inforce)
+}
+```
+
+
+```{r}
+lapse_rate_T20 <- function(duration) {
+  num_lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year == duration)
+  total <- in_force_T20(duration)
+  lapse_rate <- nrow(num_lapsed)/total
+  return (lapse_rate)
+}
+```
+
+```{r}
+lapse_rate <- data.frame()
+for (duration in 1:20) {
+  row <- data.frame(duration, lapse_rate_T20(duration))
+  lapse_rate <- rbind(lapse_rate,row)
+}
+names(lapse_rate) <- c('Year', 'Lapse Rate')
+lapse_rate
+```
+```{r}
+in_force_smoker <- function(duration){
+  lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year >= duration) %>% filter(Smoker.Status == "S")
+  death <- T20_data %>% filter(Death.indicator == '1') %>% filter(Year.of.Death - Issue.year >= duration) %>% filter(Smoker.Status == "S")
+  in_force <- T20_data %>% filter(Death.indicator != '1' & Lapse.Indicator != '1') %>% filter(2024 - Issue.year >= duration) %>% filter(Smoker.Status == "S")
+  num_inforce <- nrow(lapsed) + nrow(death) + nrow(in_force)
+  return (num_inforce)
+}
+```
+
+
+```{r}
+lapse_rate_smoker <- function(duration) {
+  num_lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year == duration) %>% filter(Smoker.Status == "S")
+  total <- in_force_smoker(duration)
+  lapse_rate <- nrow(num_lapsed)/total
+  return (lapse_rate)
+}
+```
+
+```{r}
+smoker_lapse <- data.frame()
+for (duration in 1:19) {
+  row <- data.frame(duration, lapse_rate_smoker(duration))
+  smoker_lapse <- rbind(smoker_lapse,row)
+}
+names(smoker_lapse) <- c('Year', 'Lapse Rate')
+smoker_lapse
+```
+
+
+```{r}
+in_force_maleNS <- function(duration){
+  lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year >= duration) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  death <- T20_data %>% filter(Death.indicator == '1') %>% filter(Year.of.Death - Issue.year >= duration) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  in_force <- T20_data %>% filter(Death.indicator != '1' & Lapse.Indicator != '1') %>% filter(2024 - Issue.year >= duration) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  num_inforce <- nrow(lapsed) + nrow(death) + nrow(in_force)
+  return (num_inforce)
+}
+```
+
+
+```{r}
+lapse_rate_maleNS <- function(duration) {
+  num_lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year == duration) %>% filter(Sex == 'M') %>% filter(Smoker.Status == 'NS')
+  total <- in_force_maleNS(duration)
+  lapse_rate <- nrow(num_lapsed)/total
+  return (lapse_rate)
+}
+```
+
+```{r}
+maleNS_lapse <- data.frame()
+for (duration in 1:19) {
+  row <- data.frame(duration, lapse_rate_maleNS(duration))
+  maleNS_lapse <- rbind(maleNS_lapse,row)
+}
+names(maleNS_lapse) <- c('Year', 'Lapse Rate')
+maleNS_lapse
+```
+
+
+```{r}
+in_force_femaleNS <- function(duration){
+  lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year >= duration) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  death <- T20_data %>% filter(Death.indicator == '1') %>% filter(Year.of.Death - Issue.year >= duration) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  in_force <- T20_data %>% filter(Death.indicator != '1' & Lapse.Indicator != '1') %>% filter(2024 - Issue.year >= duration) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  num_inforce <- nrow(lapsed) + nrow(death) + nrow(in_force)
+  return (num_inforce)
+}
+```
+
+
+```{r}
+lapse_rate_femaleNS <- function(duration) {
+  num_lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year == duration) %>% filter(Sex == 'F') %>% filter(Smoker.Status == 'NS')
+  total <- in_force_femaleNS(duration)
+  lapse_rate <- nrow(num_lapsed)/total
+  return (lapse_rate)
+}
+```
+
+```{r}
+femaleNS_lapse <- data.frame()
+for (duration in 1:19) {
+  row <- data.frame(duration, lapse_rate_femaleNS(duration))
+  femaleNS_lapse <- rbind(femaleNS_lapse,row)
+}
+names(femaleNS_lapse) <- c('Year', 'Lapse Rate')
+femaleNS_lapse
+```
+
+## Export required lapse rates
+
+```{r}
+required_lapse <- smoker_lapse
+required_lapse$Male_Non_Smoker <- maleNS_lapse$`Lapse Rate`
+required_lapse$Female_Non_Smoker <- femaleNS_lapse$`Lapse Rate`
+names(required_lapse)[2] <- 'Smoker'
+required_lapse
+```
+
+```{r}
+# write_xlsx(required_lapse, "C:\\Users\\leoyz\\Desktop\\Lapse Rates from Data.xlsx")
+
+```
+
+

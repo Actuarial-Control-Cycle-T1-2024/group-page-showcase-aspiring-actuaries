@@ -1,0 +1,556 @@
+---
+title: "4001 Project Analysis"
+author: "Yuchi Zhang"
+date: "2024-02-27"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+mort_data <- read.csv("2024-srcsc-superlife-inforce-dataset.csv")
+names(mort_data) <- mort_data[3,]
+mort_data <- tail(mort_data, -3)
+
+weird_data <- mort_data[mort_data$Cause.of.Death == "" & mort_data$Death.indicator == 1,]
+mort_data <- anti_join(mort_data, weird_data)
+```
+
+
+```{r}
+dup <- mort_data %>% count(Policy.number) %>% filter(n > 1)
+dup
+```
+
+```{r}
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, mort_data$Lapse.Indicator == 'Y', 1)
+mort_data$Lapse.Indicator <- replace(mort_data$Lapse.Indicator, is.na(mort_data$Lapse.Indicator),0)
+mort_data$Death.indicator <- replace(mort_data$Death.indicator, is.na(mort_data$Death.indicator),0)
+
+
+mort_data$Issue.age <- as.integer(mort_data$Issue.age)
+mort_data$Issue.year <- as.numeric(mort_data$Issue.year)
+mort_data$Year.of.Death <- as.numeric(mort_data$Year.of.Death)
+mort_data$Year.of.Lapse <- as.numeric(mort_data$Year.of.Lapse)
+```
+
+```{r}
+T20_data <- mort_data %>% filter(Policy.type == "T20")
+
+SPWL_data <- mort_data %>% filter(Policy.type == "SPWL")
+```
+
+## Proportion of T20 policy that are lapsed
+
+```{r}
+lapse <- T20_data %>% count(Lapse.Indicator)
+lapse$Proportion <- proportions(lapse$n)
+lapse$Lapse.Indicator <- c("Yes", "No")
+lapse
+```
+
+\*\*Around 18% of term policies in the data are lapsed.
+
+## Smoker vs Non-smoker death rate
+
+```{r}
+smoke <- mort_data %>% count(Smoker.Status, Death.indicator) 
+smoke_count <- mort_data %>% count(Smoker.Status)
+smoke_prop <- proportions(smoke_count$n)
+no_s <- smoke$n[smoke$Smoker.Status == 'NS'][smoke$Death.indicator == 1][1]/
+  sum(smoke$n[smoke$Smoker.Status == 'NS'])
+yes_s <- smoke$n[smoke$Smoker.Status == 'S'][smoke$Death.indicator == 1][1]/
+  sum(smoke$n[smoke$Smoker.Status == 'S'])
+smoke_rate <- data.frame(c('Non Smoker', 'Smoker'), 
+                         c(no_s, yes_s),
+                         smoke_prop)
+names(smoke_rate) <- c('Smoker.Status', 'Death.rate', "Proportion")
+smoke_rate
+```
+
+\*\*Very big impact on mortality, smoking lead to a 20% higher death rate.
+However, only 6% of policyholders in the data smokes
+
+## Death rate based on Underwriting Class
+
+```{r}
+risk <- mort_data %>% count(Underwriting.Class, Death.indicator)
+risk_count <- mort_data %>% count(Underwriting.Class)
+risk_prop <- proportions(risk_count$n)
+high_r <- risk$n[risk$Underwriting.Class == 'high risk'][risk$Death.indicator == 1][1]/
+  sum(risk$n[risk$Underwriting.Class == 'high risk'])
+mod_r <- risk$n[risk$Underwriting.Class == 'moderate risk'][risk$Death.indicator == 1][1]/
+  sum(risk$n[risk$Underwriting.Class == 'moderate risk'])
+low_r <- risk$n[risk$Underwriting.Class == 'low risk'][risk$Death.indicator == 1][1]/
+  sum(risk$n[risk$Underwriting.Class == 'low risk'])
+vlow_r <- risk$n[risk$Underwriting.Class == 'very low risk'][risk$Death.indicator == 1][1]/
+  sum(risk$n[risk$Underwriting.Class == 'very low risk'])
+risk_rate <- data.frame(c('high risk', 'low risk', 'moderate risk', 'very low risk'), 
+                         c(high_r, low_r, mod_r, vlow_r),
+                        risk_prop)
+names(risk_rate) <- c('Underwriting.Class', 'Death.rate', "Proportion")
+risk_rate
+```
+
+\*\*4% difference between the 2 low classes and the other two classes
+
+## Death rate based on Region
+
+```{r}
+region <- mort_data %>% count(Region, Death.indicator)
+region_count <- mort_data %>% count(Region)
+region_prop <- proportions(region_count$n)
+r1 <- region$n[region$Region == 1][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 1])
+r2 <- region$n[region$Region == 2][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 2])
+r3 <- region$n[region$Region == 3][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 3])
+r4 <- region$n[region$Region == 4][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 4])
+r5 <- region$n[region$Region == 5][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 5])
+r6 <- region$n[region$Region == 6][region$Death.indicator == 1][1]/
+  sum(region$n[region$Region == 6])
+region_rate <- data.frame(c(1,2,3,4,5,6), 
+                         c(r1, r2, r3, r4, r5, r6),
+                         region_prop)
+names(region_rate) <- c('Region', 'Death.rate', "Proportion")
+region_rate
+```
+
+\*\*Not much impact
+
+## Urban vs Rural death rate
+
+```{r}
+living <- mort_data %>% count(Urban.vs.Rural, Death.indicator) 
+living_count <- mort_data %>% count(Urban.vs.Rural)
+living_prop <- proportions(living_count$n)
+urban <- living$n[living$Urban.vs.Rural == 'Urban'][living$Death.indicator == 1][1]/
+  sum(living$n[living$Urban.vs.Rural == 'Urban'])
+rural <- living$n[living$Urban.vs.Rural == 'Rural'][living$Death.indicator == 1][1]/
+  sum(living$n[living$Urban.vs.Rural == 'Rural'])
+living_rate <- data.frame(c('Urban', 'Rural'), 
+                         c(urban, rural),
+                         living_prop)
+names(living_rate) <- c('Urban.vs.Rural', 'Death.rate', "Proportion")
+living_rate
+```
+
+\*\*Not much impact, urban death rate is slightly higher while more people live in rural areas.
+
+## Death rate for each Distribution channel
+
+```{r}
+distr <- mort_data %>% count(Distribution.Channel, Death.indicator) 
+distr_count <- mort_data %>% count(Distribution.Channel)
+distr_prop <- proportions(distr_count$n)
+agent <- distr$n[distr$Distribution.Channel == 'Agent'][distr$Death.indicator == 1][1]/
+  sum(distr$n[distr$Distribution.Channel == 'Agent'])
+tele <- distr$n[distr$Distribution.Channel == 'Telemarketer'][distr$Death.indicator == 1][1]/
+  sum(distr$n[distr$Distribution.Channel == 'Telemarketer'])
+online <- distr$n[distr$Distribution.Channel == 'Online'][distr$Death.indicator == 1][1]/
+  sum(distr$n[distr$Distribution.Channel == 'Online'])
+distr_rate <- data.frame(c('Agent', 'Online', 'Telemarketer'), 
+                         c(agent, online, tele),
+                         distr_prop)
+names(distr_rate) <- c('Distribution.Channel', 'Death.rate', 'Proportion')
+distr_rate
+```
+
+\*\*Some differences between distribution channels as agent distributed policies have the highest death rate while online agent distributed policies have the lowest.
+
+## Death rate for each level of Face Amount
+
+```{r}
+amount <- mort_data %>% count(Face.amount, Death.indicator)
+amount_count <- mort_data %>% count(Face.amount)
+amount_prop <- proportions(amount_count$n)
+a1 <- amount$n[amount$Face.amount == '50000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '50000'])
+a2 <- amount$n[amount$Face.amount == '100000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '100000'])
+a3 <- amount$n[amount$Face.amount == '250000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '250000'])
+a4 <- amount$n[amount$Face.amount == '500000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '500000'])
+a5 <- amount$n[amount$Face.amount == '1000000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '1000000'])
+a6 <- amount$n[amount$Face.amount == '2000000'][amount$Death.indicator == 1][1]/
+  sum(amount$n[amount$Face.amount == '2000000'])
+amount_rate <- data.frame(amount_count$Face.amount, 
+                          c(a2, a5, a6, a3, a1, a4),
+                          amount_prop)
+names(amount_rate) <- c('Face.amount', 'Death.rate', 'Proportion')
+amount_rate
+```
+
+\*\*Slight differences but not much in general
+
+## Male vs Female Death rate
+
+```{r}
+sex <- mort_data %>% count(Sex, Death.indicator)
+sex_count <- mort_data %>% count(Sex)
+sex_prop <- proportions(sex_count$n)
+female <- sex$n[sex$Sex == 'F'][sex$Death.indicator == 1][1]/
+  sum(sex$n[sex$Sex == 'F'])
+male <- sex$n[sex$Sex == 'M'][sex$Death.indicator == 1][1]/
+  sum(sex$n[sex$Sex == 'M'])
+sex_rate <- data.frame(c('Female', 'Male'), 
+                       c(female, male),
+                       sex_prop)
+names(sex_rate) <- c('Sex', 'Death.rate', 'Proportion')
+sex_rate
+```
+
+\*\* Males have a 2.3% higher death rate than females and there is
+around 12% more males than females in the data. 
+
+## T20 vs SPWL Death rate
+
+```{r}
+policy <- mort_data %>% count(Policy.type, Death.indicator) 
+policy_count <- mort_data %>% count(Policy.type)
+policy_prop <- proportions(policy_count$n)
+T20 <- policy$n[policy$Policy.type == 'T20'][policy$Death.indicator == 1][1]/
+  sum(policy$n[policy$Policy.type == 'T20'])
+SPWL <- policy$n[policy$Policy.type == 'SPWL'][policy$Death.indicator == 1][1]/
+  sum(policy$n[policy$Policy.type == 'SPWL'])
+policy_rate <- data.frame(c('SPWL', 'T20'), 
+                          c(SPWL, T20),
+                          policy_prop)
+names(policy_rate) <- c('Policy.type', 'Death.rate', 'Proportion')
+policy_rate
+```
+
+\*\*Mortality higher for whole life policy which is to be expected as there is no lapsing.
+
+--------------------------------------------------------------------------
+## Smoking Gender distribution
+
+```{r}
+smoking_data <- mort_data %>% filter(Smoker.Status == 'S')
+
+smoking_gender <- smoking_data %>% count(Sex) 
+smoking_gender$Prop <- proportions(smoking_gender$n)
+smoking_gender
+```
+## Smoking Age distribution
+
+```{r}
+smoking_age <- smoking_data %>% count(Issue.age)
+smoking_age$Prop <- proportions(smoking_age$n)
+smoke_prop_26to35 <- sum(smoking_age$Prop[1:10])
+smoke_prop_36to45 <- sum(smoking_age$Prop[11:20])
+smoke_prop_46to55 <- sum(smoking_age$Prop[21:30])
+smoke_prop_56to65 <- sum(smoking_age$Prop[31:40])
+smoking_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(smoke_prop_26to35, smoke_prop_36to45, smoke_prop_46to55, smoke_prop_56to65))
+
+names(smoking_age_prop) <- c('Age Group', 'Proportion')
+smoking_age_prop
+```
+
+## Proportion of young people that smoke
+
+```{r}
+young_data <- mort_data %>% filter(Issue.age <= 35)
+young_smoke <- young_data %>% count(Smoker.Status)
+young_smoke$Prop <- proportions(young_smoke$n)
+young_smoke
+```
+## Proportion of middle aged people that smoke
+
+```{r}
+middle_data <- mort_data %>% filter(Issue.age >= 35 & Issue.age <=55)
+middle_smoke <- middle_data %>% count(Smoker.Status)
+middle_smoke$Prop <- proportions(middle_smoke$n)
+middle_smoke
+```
+## Proportion of old people that smoke
+
+```{r}
+old_data <- mort_data %>% filter(Issue.age >= 55)
+old_smoke <- old_data %>% count(Smoker.Status)
+old_smoke$Prop <- proportions(old_smoke$n)
+old_smoke
+```
+## Smokers mortality
+
+```{r}
+smoke_die <- smoking_data %>% count(Death.indicator)
+smoke_die$Prop <- proportions(smoke_die$n)
+smoke_die
+```
+## Distribution channels for young people
+
+```{r}
+young_distri <- young_data %>% count(Distribution.Channel)
+young_distri$Prop <- proportions(young_distri$n)
+young_distri
+```
+
+## Distribution channels for old people
+
+```{r}
+old_distri <- old_data %>% count(Distribution.Channel)
+old_distri$Prop <- proportions(old_distri$n)
+old_distri
+```
+
+## Distribution channels for middle aged people
+
+```{r}
+middle_distri <- middle_data %>% count(Distribution.Channel)
+middle_distri$Prop <- proportions(middle_distri$n)
+middle_distri
+```
+
+## Age distribution for online distribution
+
+```{r}
+online_data <- mort_data %>% filter(Distribution.Channel == "Online")
+online_age <- online_data %>% count(Issue.age)
+online_age$Prop <- proportions(online_age$n)
+online_prop_26to35 <- sum(online_age$Prop[1:10])
+online_prop_36to45 <- sum(online_age$Prop[11:20])
+online_prop_46to55 <- sum(online_age$Prop[21:30])
+online_prop_56to65 <- sum(online_age$Prop[31:40])
+online_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(online_prop_26to35, online_prop_36to45, online_prop_46to55, online_prop_56to65))
+
+names(online_age_prop) <- c('Age Group', 'Proportion')
+online_age_prop
+
+```
+
+## Age distribution for agent distribution
+
+```{r}
+agent_data <- mort_data %>% filter(Distribution.Channel == "Agent")
+agent_age <- agent_data %>% count(Issue.age)
+agent_age$Prop <- proportions(agent_age$n)
+agent_prop_26to35 <- sum(agent_age$Prop[1:10])
+agent_prop_36to45 <- sum(agent_age$Prop[11:20])
+agent_prop_46to55 <- sum(agent_age$Prop[21:30])
+agent_prop_56to65 <- sum(agent_age$Prop[31:40])
+agent_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(agent_prop_26to35, agent_prop_36to45, agent_prop_46to55, agent_prop_56to65))
+
+names(agent_age_prop) <- c('Age Group', 'Proportion')
+agent_age_prop
+```
+
+## Age distribution for telemarketer distribution
+
+```{r}
+tele_data <- mort_data %>% filter(Distribution.Channel == "Telemarketer")
+tele_age <- tele_data %>% count(Issue.age)
+tele_age$Prop <- proportions(tele_age$n)
+tele_prop_26to35 <- sum(tele_age$Prop[1:10])
+tele_prop_36to45 <- sum(tele_age$Prop[11:20])
+tele_prop_46to55 <- sum(tele_age$Prop[21:30])
+tele_prop_56to65 <- sum(tele_age$Prop[31:40])
+tele_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(tele_prop_26to35, tele_prop_36to45, tele_prop_46to55, tele_prop_56to65))
+
+names(tele_age_prop) <- c('Age Group', 'Proportion')
+tele_age_prop
+```
+
+## Proportion of people in each age group
+
+```{r}
+age_prop <- mort_data %>% count(Issue.age)
+age_prop$Prop <- proportions(age_prop$n)
+age_prop_26to35 <- sum(age_prop$Prop[1:10])
+age_prop_36to45 <- sum(age_prop$Prop[11:20])
+age_prop_46to55 <- sum(age_prop$Prop[21:30])
+age_prop_56to65 <- sum(age_prop$Prop[31:40])
+age_group_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(age_prop_26to35, age_prop_36to45, age_prop_46to55, age_prop_56to65))
+
+names(age_group_prop) <- c('Age Group', 'Proportion')
+age_group_prop
+```
+
+## Average age of people over the years
+
+```{r}
+year_age <- mort_data %>% select(Issue.year, Issue.age) 
+avg_age <- year_age %>% group_by(Issue.year) %>% summarise(Average = mean(Issue.age))
+avg_age
+plot(avg_age)
+
+```
+
+## Duration of claimed policy 
+
+```{r}
+death_data <- mort_data %>% filter(Death.indicator == 1) %>% mutate(Duration = 
+                                                                  Year.of.Death -Issue.year)
+ggplot(death_data, aes(Duration)) +
+  geom_bar(fill = "#0073C2FF")
+
+duration <- death_data %>% count(Duration)
+duration$Prop <- proportions(duration$n)
+duration_prop_0to5 <- sum(duration$Prop[1:6])
+duration_prop_6to10 <- sum(duration$Prop[7:11])
+duration_prop_11to15 <- sum(duration$Prop[12:16])
+duration_prop_16to20 <- sum(duration$Prop[17:21])
+duration_prop_20plus <- sum(duration$Prop[21:23])
+duration_group_prop <- data.frame(c('0-5', '6-10', '11-15', '16-20', '20+'), 
+                          c(duration_prop_0to5, duration_prop_6to10, duration_prop_11to15, duration_prop_16to20, duration_prop_20plus))
+
+names(duration_group_prop) <- c('Duration', 'Proportion')
+duration_group_prop
+```
+
+## Duration of Lapsed Policies
+
+```{r}
+lapsed_data <- mort_data %>% filter(Lapse.Indicator == 1) %>% mutate(Duration = 
+                                                                  Year.of.Lapse - Issue.year)
+ggplot(lapsed_data, aes(Duration)) +
+  geom_bar(fill = "#0073C2FF")
+
+durationL <- lapsed_data %>% count(Duration)
+durationL$Prop <- proportions(durationL$n)
+durationL_prop_0to5 <- sum(durationL$Prop[1:6])
+durationL_prop_6to10 <- sum(durationL$Prop[7:11])
+durationL_prop_11to15 <- sum(durationL$Prop[12:16])
+durationL_prop_16to18 <- sum(durationL$Prop[17:19])
+durationL_prop_19 <- sum(durationL$Prop[20])
+durationL_group_prop <- data.frame(c('0-5', '6-10', '11-15', '16-18', '19'), 
+                          c(durationL_prop_0to5, durationL_prop_6to10, durationL_prop_11to15, durationL_prop_16to18, durationL_prop_19))
+
+names(durationL_group_prop) <- c('Duration', 'Proportion')
+durationL_group_prop
+
+```
+
+## Lapse age distribution
+
+```{r}
+real_lapse_data <- lapsed_data %>% filter(Duration < 19)
+
+lapse_prop <- real_lapse_data %>% count(Issue.age)
+lapse_prop$Prop <- proportions(lapse_prop$n)
+lapse_prop_26to35 <- sum(lapse_prop$Prop[1:10])
+lapse_prop_36to45 <- sum(lapse_prop$Prop[11:20])
+lapse_prop_46to55 <- sum(lapse_prop$Prop[21:30])
+lapse_prop_56to65 <- sum(lapse_prop$Prop[31:40])
+lapse_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(lapse_prop_26to35, lapse_prop_36to45, lapse_prop_46to55, lapse_prop_56to65))
+
+names(lapse_age_prop) <- c('Age Group', 'Proportion')
+lapse_age_prop
+```
+
+
+## Age distribution for each policy type
+
+```{r}
+T20_age <- T20_data %>% count(Issue.age)
+T20_age$Prop <- proportions(T20_age$n)
+T20_prop_26to35 <- sum(T20_age$Prop[1:10])
+T20_prop_36to45 <- sum(T20_age$Prop[11:20])
+T20_prop_46to55 <- sum(T20_age$Prop[21:30])
+T20_prop_56to65 <- NA
+T20_age_prop <- data.frame(c('26-35', '36-45', '46-55', '56-65'), 
+                          c(T20_prop_26to35, T20_prop_36to45, T20_prop_46to55, T20_prop_56to65))
+
+names(T20_age_prop) <- c('Age Group', 'Proportion')
+T20_age_prop
+
+```
+
+```{r}
+SPWL_age <- SPWL_data %>% count(Issue.age)
+SPWL_age$Prop <- proportions(SPWL_age$n)
+SPWL_prop_26to34 <- NA
+SPWL_prop_35to45 <- sum(SPWL_age$Prop[1:11])
+SPWL_prop_46to55 <- sum(SPWL_age$Prop[12:21])
+SPWL_prop_56to65 <- sum(SPWL_age$Prop[22:31])
+SPWL_age_prop <- data.frame(c('26-34', '35-45', '46-55', '56-65'), 
+                          c(SPWL_prop_26to34, SPWL_prop_35to45, SPWL_prop_46to55, SPWL_prop_56to65))
+
+names(SPWL_age_prop) <- c('Age Group', 'Proportion')
+SPWL_age_prop
+```
+
+## Smoking vs Underwriting class
+
+```{r}
+smoke_class <- mort_data %>% count(Underwriting.Class, Smoker.Status)
+smoke_class
+```
+
+## Age vs Class
+
+```{r}
+young_class <- young_data %>% count(Underwriting.Class)
+young_class$Prop <- proportions(young_class$n)
+young_class
+```
+
+```{r}
+middle_class <- middle_data %>% count(Underwriting.Class)
+middle_class$Prop <- proportions(middle_class$n)
+middle_class
+```
+
+```{r}
+old_class <- old_data %>% count(Underwriting.Class)
+old_class$Prop <- proportions(old_class$n)
+old_class
+```
+
+
+```{r}
+ggplot(mort_data, aes(Issue.year)) +
+  geom_bar(fill = "#0073C2FF")
+```
+
+
+## lapse rate
+
+```{r}
+in_force_T20 <- function(duration){
+  lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year >= duration)
+  death <- T20_data %>% filter(Death.indicator == '1') %>% filter(Year.of.Death - Issue.year >= duration)
+  in_force <- T20_data %>% filter(Death.indicator != '1' & Lapse.Indicator != '1') %>% filter(2024 - Issue.year >= duration)
+  num_inforce <- nrow(lapsed) + nrow(death) + nrow(in_force)
+  return (num_inforce)
+}
+```
+
+
+```{r}
+lapse_rate_T20 <- function(duration) {
+  num_lapsed <- T20_data %>% filter(Lapse.Indicator == '1') %>% filter(Year.of.Lapse - Issue.year == duration)
+  total <- in_force_T20(duration)
+  lapse_rate <- nrow(num_lapsed)/total
+  return (lapse_rate)
+}
+```
+
+```{r}
+lapse_rate <- data.frame()
+for (duration in 1:20) {
+  row <- data.frame(duration, lapse_rate_T20(duration))
+  lapse_rate <- rbind(lapse_rate,row)
+}
+names(lapse_rate) <- c('Year', 'Lapse Rate')
+lapse_rate
+```
+
+
+
+
+

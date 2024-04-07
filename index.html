@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspiring Actuaries</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="web/style.css">
+</head>
+<body>
+<div class="msb" id="msb">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <div class="brand-wrapper">
+                <!-- Brand -->
+                <div class="brand-name-wrapper">
+                    <a class="navbar-brand" href="#">
+                        Aspiring<br/>Actuaries
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="side-menu-container">
+            <ul class="nav navbar-nav">
+
+                <li><a href="#brief"><i class="fa fa-info-circle"></i> Background</a></li>
+                <li><a href="#insights"><i class="fa fa-lightbulb-o"></i> Insights</a></li>
+                <li class="panel panel-default" id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-lvl1">
+                        <i class="fa fa-diamond"></i> Incentives
+                        <span class="caret"></span>
+                    </a>
+                    <div id="dropdown-lvl1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                    <li><a href="#incentives">Smoking Cessation</a></li>
+                                    <li><a href="#incentives">Weight Management</a></li>
+                                    <li><a href="#incentives">Cancer Prevention</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li><a href="#pricing"><i class="fa fa-money"></i> Pricing & Costs</a></li>
+                <li><a href="#assumptions"><i class="fa fa-book"></i> Assumptions</a></li>
+                <li><a href="#risks"><i class="fa fa-exclamation-triangle"></i> Risks & Sensitivities</a></li>
+                <li><a href="#files"><i class="fa fa-file"></i> Files</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="mcw">
+    <div class="container">
+        <div class="row">
+            <h1>SuperLife Health Incentive Program</h1>
+            <p>Jinil Patel, Melissa Renard, Jason Zhang, Ricky Zhang, Yuchi Zhang</p>
+        </div>
+        <div class="row" id="brief">
+            <h2>Background</h2>
+            <p>SuperLife is one of the major life insurance companies of Lumaria. We have been asked to develop a health incentive program that SuperLife can pair with its longer-term life insurance products. SuperLife are looking to improve its policyholders’ expected mortality once the policyholder has purchased an insurance policy. Specifically, SuperLife's primary goals are:</p>
+            <ul>
+                <li>Incentivise healthy behaviours through participation in the program</li>
+                <li>Decrease expected mortality</li>
+                <li>Increase product marketability and competitiveness</li>
+                <li>Add economic value to SuperLife</li>
+            </ul>
+            <p>We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives.</p>
+        </div>
+
+        <hr>
+        <div class="row" id="insights">
+            <h2>Key Insights / Summary</h2>
+        </div>
+        <div class="row">
+
+            <p>Overall, the proposed health incentive program shows promising potential to reduce mortality rates,
+                increase policyholder engagement, and significantly enhance SuperLife's profitability over the long
+                term. However, careful consideration of assumptions, risk mitigation strategies, and data limitations is
+                crucial for effective implementation and monitoring of the program's success.</p>
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#insights_1" data-toggle="tab">Program Design</a>
+                </li>
+                <li>
+                    <a href="#insights_2" data-toggle="tab">Pricing & Costs
+                    </a>
+                </li>
+                <li>
+                    <a href="#insights_3" data-toggle="tab">Assumptions
+                    </a>
+                </li>
+                <li>
+                    <a href="#insights_4" data-toggle="tab">Risks & Risk Mitigation
+                    </a>
+                </li>
+                <li>
+                    <a href="#insights_5" data-toggle="tab">Data & Data Limitations
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content ">
+                <div class="tab-pane active" id="insights_1">
+                    <ul>
+                        <li>Smoking Cessation Program: Implementing a reward-based scheme for smokers to quit, with
+                            progressive cash incentives over a 6-month term, aiming to reduce mortality rates attributed
+                            to
+                            smoking by 25%. Estimated completion rates suggest 33.6%-43.2% of smokers may complete the
+                            program, with a 20%-30% probability of long-term cessation.
+                        </li>
+                        <li>Weight Management Program: Utilizing a dedicated app, offering dietary information and
+                            physical
+                            activity incentives, with an expected mortality reduction of 5% for non-smokers.
+                        </li>
+                        <li>Cancer Prevention Initiatives: Providing early detection and prevention initiatives for
+                            various
+                            cancers, anticipating a 3% reduction in mortality rates.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-pane" id="insights_2">
+                    <ul>
+                        <li>Smoking cessation incurs a one-time cost of Č2,177.50 in the first year, with subsequent
+                            costs
+                            being Č28.75 per year. Weight management costs Č522.50 per program, while cancer prevention
+                            initiatives cost Č52.50 per policyholder annually.
+                        </li>
+                        <li>Despite initial costs, the program is anticipated to significantly increase profitability,
+                            particularly evident in the 10-fold increase in profit margin for single-premium whole life
+                            insurance policies.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="insights_3">
+                    <ul>
+                        <li>Mortality reductions are assumed for each program: 25% for smoking cessation, 5% for weight
+                            management, and 3% for cancer prevention. These reductions are not considered independent of
+                            each other.
+                        </li>
+                        <li>Pricing is based on age brackets, with consideration for differences between smokers and
+                            non-smokers.
+                        </li>
+                        <li>Sensitivity analyses explore various scenarios, including different mortality decrease rates
+                            and
+                            withdrawal rates, to understand potential impacts on profits.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="insights_4">
+                    <ul>
+                        <li>Identified risks include low engagement, adverse selection, increase in risky behavior, data
+                            security, equity concerns, regulatory changes, budget overruns, and model risk.
+                        </li>
+                        <li>Mitigation strategies involve trial phases, personalized services, eligibility criteria,
+                            cybersecurity measures, diverse partnerships, proactive regulatory compliance, financial
+                            management, and sensitivity analysis.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="insights_5">
+                    <ul>
+                        <li>Utilized internal datasets from SuperLife but encountered limitations such as missing key
+                            policyholder information and unisex mortality rates, requiring assumptions and adjustments
+                            in
+                            analysis.
+                        </li>
+                        <li>Information on interventions provided wide ranges of cost and mortality decrease,
+                            necessitating
+                            additional research and assumptions, with mortality reductions applied universally across
+                            policyholders.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+        <hr>
+        <div class="row" id="incentives">
+            <h2>Incentives</h2>
+        </div>
+        <div class="row">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#incentives_1" data-toggle="tab">Smoking Cessation Program</a>
+                </li>
+                <li>
+                    <a href="#incentives_2" data-toggle="tab">Weight Management Program
+                    </a>
+                </li>
+                <li>
+                    <a href="#incentives_3" data-toggle="tab">Cancer Prevention Initiatives
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content ">
+                <div class="tab-pane active" id="incentives_1">
+                    <h3>Smoking Cessation Program</h3>
+                    <p>An incentive designed to encourage current smokers to quit was developed after an initial
+                        exploratory data analysis highlighted a significant correlation between smoking and a decrease
+                        in
+                        expected mortality.</p>
+                    <p>The incentive follows a reward-based scheme that uses progressively increasing cash incentives
+                        over a 6-month term. Studies have shown that the likelihood of relapse is very high (75%) within
+                        this period, and decreases after 6 months of cessation, dropping down to a 30-40% chance of
+                        relapse over the next 8 years (Lee, Kim, Im, & Jang, 2021). As such, the progression-based
+                        reward
+                        scheme aims to help smokers through the initial 6 months (Berlin, et al., 2021).</p>
+                    <p>The proposed progression scheme provides a cash reward at certain stages aimed at maximising
+                        continued participation in the program, for a 6-month total of Č1,500.</p>
+                    <table class="table">
+                        <tr class="active">
+                            <th>&nbsp</th>
+                            <th colspan="3">Week</th>
+                            <th colspan="3">Month</th>
+                        </tr>
+                        <tr>
+                            <th>&nbsp</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                        </tr>
+                        <tr>
+                            <td>Reward (Č)</td>
+                            <td>100</td>
+                            <td>150</td>
+                            <td>200</td>
+                            <td>300</td>
+                            <td>350</td>
+                            <td>400</td>
+                        </tr>
+                    </table>
+
+                    <p>Studies conducted in Switzerland following a similar progressive reward scheme had participants
+                        on average receiving Č1,028 with 87% of participants receiving 1 reward and 48% having
+                        completed all 6 months (Etter & Schmid, 2016). A survey among participants revealed that
+                        participants in the incentive program were much more likely to have obtained help by themselves
+                        over the internet than those that expressed quitting but were not offered the incentive program;
+                        the
+                        progressive nature of the program resulted in participants becoming more motivated to seek
+                        resources to help complete the program.</p>
+
+                    <p>Surveys suggest that approximately 70-90% of smokers would like to quit and participate in the
+                        program (Halpern, et al., 2016). These numbers suggest that approximately 33.6%-43.2% of
+                        current smokers will complete the 6-month program, with a 20%-30% probability for long-term
+                        cessation. We have assumed a 25% decrease in mortality rates attributable to smoking.</p>
+
+                    <p>In the short term, yearly participation rates and program completion rates must be monitored to
+                        ensure that there is enough completion of the program such that the cost savings associated with
+                        the theoretical expected decrease in mortality will justify the observed per participant cost.
+                        In
+                        the
+                        long term, given that most SuperLife members are aged in the 40s, we can expect to observe a
+                        decrease in mortality within the next 40 years. In the unlikely event that after 40 years the
+                        observed
+                        mortality decrease is not as large as expected, the pricing of the program will need to be
+                        reviewed.</p>
+                </div>
+
+
+                <div class="tab-pane" id="incentives_2">
+                    <h3>Weight Management Program</h3>
+                    <p>A weight management program is applicable to all policyholders. This way, it will affect not only
+                        smokers, but non-smokers which make up approximately 94% of SuperLife’s policyholders.
+                        Approximately one in three cancers are preventable (Wilson, et al., 2018) through lifestyle
+                        changes
+                        including weight management and diet. Not only will this program reduce policyholders’ risk of
+                        cancer, but it will also reduce the risk of heart problems, blood clots and arthritis.</p>
+
+                    <p>Our proposed weight management program will run on an app created specifically for SuperLife
+                        policyholders. The SuperLife health incentive program will include:</p>
+                    <ul>
+                        <li>Information on dietary changes to improve health, such as a reduction in red and processed
+                            meat consumption, a reduction in alcohol consumption, and an increase in the consumption
+                            of fruits and vegetables (Lifestyle Choices Can Prevent 1 in 3 Cancers, 2021). Specifically:
+
+
+                            <table class="table">
+                                <tr class="active">
+                                    <th>Food / Beverage</th>
+                                    <th>Recoomended Intake</th>
+                                </tr>
+                                <tr>
+                                    <td>Red & Processed Meat</td>
+                                    <td>No more than 1 serve of lean red meat per day, or 2 serves
+                                        3-4 times per week
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alcohol</td>
+                                    <td>No more than 10 standard drinks per week and no more
+                                        than 4 standard drinks on any occasion.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fruits & Vegetables</td>
+                                    <td>2 serves of fruit and 5 serves of vegetables every day.</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                    <p>Providing this information straight to members means that members don’t have to dedicate time
+                        or money to conduct their own research</p>
+                    <p>Further, SuperLife can provide physical activity incentives, such as:</p>
+                    <ul>
+                        <li>Reminding members to take a short walk every thirty minutes. This is particularly helpful
+                            for those who have a nine-to-five desk job.
+                        </li>
+                        <li>Recommending members take the stairs instead of the elevator when they can.</li>
+                        <li>Recommending walking tracks to members. Lumaria is rich in natural landmarks such as
+                            the Luminous Lake, Skyreach and Whispering Woods
+                        </li>
+                    </ul>
+                    <p>Members can stay motivated and keep themselves accountable by tracking their meals and physical
+                        activity each day through the app. Participation in the program may be encouraged by providing
+                        members with rewards for completing tasks, for example vouchers than can be used in grocery
+                        stores.</p>
+                    <p>We expect that mortality will not reduce by more than the effects attributed to the smoking
+                        cessation program. For non-smokers, we expect a 5% reduction in mortality from this program.</p>
+                </div>
+                <div class="tab-pane" id="incentives_3">
+                    <h3>Cancer Prevention Initiatives</h3>
+                    <p>One of the main causes of death for SuperLife’s policyholders is cancer, although we are not
+                        given
+                        information on the type of cancer that causes deaths. Below are general early detection and
+                        prevention initiatives for cancer that SuperLife can provide to their policyholders once a year,
+                        at
+                        relevant times.</p>
+                    <ul>
+                        <li>
+                            Early detection of cancer:
+                            <ul>
+                                <li>Inform members on how they can check their own body for signs of cancer, such
+                                    as skin, breast or testicular.
+                                </li>
+                                <li>Encourage members to undertake cancer screenings, e.g. for bowel cancer.</li>
+                            </ul>
+                        </li>
+                        <li>When nearing spring & summer, inform members on how to reduce their exposure to solar
+                            ultra-violet radiation (Wilson, et al., 2018), such as applying sunscreen regularly, wearing
+                            sun safe hats, staying in the shade and wearing polarised sunglasses.
+                        </li>
+                    </ul>
+                    <p>Information will be provided to policyholders through letters sent to the members’ home addresses
+                        twice per year (one for early detection initiatives and one in the spring for skin cancer
+                        prevention).</p>
+                    <p>For smokers, we expect that mortality will not reduce by more than that comes from the smoking
+                        cessation program. For non-smokers, there are overlaps in mortality reduction through the weight
+                        management program and cancer prevention initiatives. While we expect cancer prevention
+                        initiatives to reduce mortality by 5% independently of the weight management program, the
+                        combined effect of both means our expected additional reduction in mortality from cancer
+                        prevention initiatives will be 3%.</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="pricing">
+            <h2>Pricing & Costs</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <p>
+                    The smoking cessation program is a one-off cost of Č2,177.50 in the first year of policyholder
+                    issue. This is a result from the Č1,500 cost to successful participants and Č677.50 as marketing
+                    and setup costs. As the program is short-term, consequent costs are one-off in the short-term. The
+                    cost of the weight management program is Č522.50 per program, and the cost of cancer prevention
+                    initiatives is Č52.50 per policyholder. We estimate a 5% additional cost per year to maintain these
+                    two programs. The costs of the entire program for smokers and non-smokers are in the table below.
+                </p>
+
+                <p>
+                    Premiums were estimated by guaranteeing an 8% profit margin for SuperLife (before program
+                    implementation). We found it was not necessary to change (or increase) premium prices after
+                    program implementation. 20-year profits before and after program implementation as well as profit
+                    margins for each policy type were estimated and are shown in the tables below.
+                </p>
+
+                <p>
+                    Although the profit margin for the 20-year term life insurance decreases under the program, profit
+                    margin for SuperLife’s single-premium whole life insurance would have increased tenfold. From
+                    improved mortality from the program alone, we estimate that total profit for SuperLife in the last
+                    20 years would have increased from Č1.4 billion to Č5.0 billion, with a profit margin of 35%.
+                </p>
+
+            </div>
+            <div class="col-md-7">
+                <div class="row well">
+                    <table class="table">
+                        <tr class="info">
+                            <th>Policyholder Type</th>
+                            <th>Cost in first year</th>
+                            <th>Cost in subsequent years</th>
+                        </tr>
+                        <tr>
+                            <td>Smoker</td>
+                            <td>Č 2,752.50</td>
+                            <td>Č 28.75</td>
+                        </tr>
+                        <tr>
+                            <td>After Program</td>
+                            <td>Č 575.00</td>
+                            <td>Č 28.75</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row well">
+                    <table class="table">
+                        <tr class="info">
+                            <th>T20</th>
+                            <th>Profit before tax</th>
+                            <th>Profit margin</th>
+                        </tr>
+                        <tr>
+                            <td>Before Program</td>
+                            <td>Č 1,097M</td>
+                            <td>8.00%</td>
+                        </tr>
+                        <tr>
+                            <td>After Program</td>
+                            <td>Č 2,516M</td>
+                            <td>5.61%</td>
+                        </tr>
+                        <tr class="info">
+                            <th>SPWL</th>
+                            <th>Profit before tax</th>
+                            <th>Profit margin</th>
+                        </tr>
+                        <tr>
+                            <td>Before Program</td>
+                            <td>Č 320M</td>
+                            <td>8.00%</td>
+                        </tr>
+                        <tr>
+                            <td>After Program</td>
+                            <td>Č 2,511M</td>
+                            <td>83.43%</td>
+                        </tr>
+                        <tr class="info">
+                            <th>Total</th>
+                            <th>Profit before tax</th>
+                            <th>Profit margin</th>
+                        </tr>
+                        <tr>
+                            <td>Before Program</td>
+                            <td>Č 1,417M</td>
+                            <td>8.00%</td>
+                        </tr>
+                        <tr>
+                            <td>After Program</td>
+                            <td>Č 5,027M</td>
+                            <td>35.13%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="assumptions">
+            <h2>Assumptions</h2>
+        </div>
+        <div class="row">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h3 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                Mortality
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Mortality is derived from SuperLife’s in-force policyholder dataset.</li>
+                                <li>Male and female mortality rates are different (only considered when calculating
+                                    profits for
+                                    non-smoking policy holders).
+                                </li>
+                                <li>Mortality rates for all smokers (of the same age) are the same, regardless of sex.
+                                </li>
+                            </ul>
+                            <img src="web/img/mortality.png" alt="Mortality Assumptions">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h3 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Incentives
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Decrease in mortality from the smoking cessation program is 25%.</li>
+                                <li>Decrease in mortality from weight management program (WMP) is 5%.</li>
+                                <li>Decrease in mortality from cancer prevention program (CPP) is 3%.</li>
+                                <li>Decreases in mortality from different programs are not independent. Thus, we have
+                                    not
+                                    taken 5% as decrease in mortality from CPP as we believe some of the decrease in
+                                    mortality
+                                    will also arise from the WMP.
+                                </li>
+                                <li>When calculating decrease in mortality we multiplied the original mortality by
+                                    0.97 × 0.95 = 0.9215, not by 0.92. We have considered the decrease in mortality for
+                                    CPP dependent on WMP,
+                                    however, we have considered their effects on mortality independent.
+                                </li>
+                                <li>All smokers participate in CPP and WMP, but they do not affect mortality.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h3 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Costs & Pricing
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Premiums are priced in 10-year age brackets: 26-35, 36-45, 46-55, 56-65. We have
+                                    used the 3rd oldest age in each bracket to calculate profits, so that costs
+                                    are not underestimated.
+                                </li>
+                                <li>All program costs will be paid by SuperLife</li>
+                                <li>We have not changed the price ranges of the incentive programs</li>
+                                <li>The CPP and WMP combined will incur maintenance costs.</li>
+                                <li>Commissions:
+                                    <ul>
+                                        <li>Single Premium Whole life: 5% one-off commission.</li>
+                                        <li>20 Year Term: 90% in the first year and 5% for subsequent years.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                        <h3 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Interest Rate & Inflation
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingFour">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Inflation and the risk-free interest rate have been assumed to be constant at 2%
+                                    p.a. and
+                                    2.5% p.a., respectively.
+                                </li>
+                                <li>Using the S&P500 index as a reference for market return and an assumed risk beta of
+                                    0.98
+                                    (Damodaran, 2024), SuperLife’s cost of capital is estimated to be 10.83% p.a.
+                                </li>
+                                <li>As regulators require insurance companies invest in liquid and low-risk assets,
+                                    SuperLife’s
+                                    estimated return on investment is two percentage points above the risk-free rate, or
+                                    4.5%
+                                    p.a.
+                                </li>
+                            </ul>
+                                <img src="web/img/interest.png" alt="Interest assumptions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row", id="risks">
+            <h2>Risks & Sensitivities</h2>
+            <div class="col-md-4"><h3>Mortality Reduction</h3>
+                <p>The mortality reduction rates were adjusted from the base estimate of 25% (smokers) / 7.85%
+                    (non-smokers) to a lower bound of 15% / 0% and an upper bound of 50% / 10%</p></div>
+            <div class="col-md-4"><h3>Interest Rates</h3>
+                <p>The interest rates were adjusted from the base estimate of 2.5% to a lower bound of 1.5% and an upper
+                    bound of 5%</p></div>
+            <div class="col-md-4"><h3>Withdrawal Rates</h3>
+                <p>The interest rates were adjusted to a lower bound of 90% of the original lapse rate, and an upper
+                    bound of 110% of the original lapse rate.</p></div>
+        </div>
+        <div class="row">
+
+
+            <div class="col-md-4">
+
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#risks_mortality_1" data-toggle="tab">15% / 0%</a>
+                    </li>
+                    <li class="active">
+                        <a href="#risks_mortality_2" data-toggle="tab">25% / 7.85%
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#risks_mortality_3" data-toggle="tab">50 / 10%
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content ">
+                    <div class="tab-pane" id="risks_mortality_1">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 910M</td>
+                                <td>8.17%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 1,643M</td>
+                                <td>-2.30%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 168M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 1,769M</td>
+                                <td>37.22%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,079M</td>
+                                <td>8.10%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 3,412M</td>
+                                <td>12.69%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane active" id="risks_mortality_2">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,097M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,516M</td>
+                                <td>5.61%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 320M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,511M</td>
+                                <td>83.43%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,417M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,027M</td>
+                                <td>35.13%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="risks_mortality_3">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 909M</td>
+                                <td>8.05%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 4,772M</td>
+                                <td>25.46%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 168M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,293M</td>
+                                <td>223.82%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,077M</td>
+                                <td>8.03%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 10,065M</td>
+                                <td>100.70%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#risks_interest_1" data-toggle="tab">1.5%</a>
+                    </li>
+                    <li class="active">
+                        <a href="#risks_interest_2" data-toggle="tab">2.5%</a>
+                    </li>
+                    <li>
+                        <a href="#risks_interest_3" data-toggle="tab">5%</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content ">
+                    <div class="tab-pane" id="risks_interest_1">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 584M</td>
+                                <td>5.25%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,243M</td>
+                                <td>3.20%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č -1,124M</td>
+                                <td>-61.12%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 1,312M</td>
+                                <td>19.84%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č -539M</td>
+                                <td>-19.93%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 3,555M</td>
+                                <td>9.51%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane active" id="risks_interest_2">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,097M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,516M</td>
+                                <td>5.61%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 320M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,511M</td>
+                                <td>83.43%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,417M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,027M</td>
+                                <td>35.13%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="risks_interest_3">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,721M</td>
+                                <td>15.46%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 3,196M</td>
+                                <td>11.64%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 3,379M</td>
+                                <td>179.74%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,126M</td>
+                                <td>235.97%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 5,100M</td>
+                                <td>77.77%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 8,321M</td>
+                                <td>96.73%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#risks_withdrawal_1" data-toggle="tab">90%</a>
+                    </li>
+                    <li class="active"><a href="#risks_withdrawal_2" data-toggle="tab">100%</a>
+                    </li>
+                    <li><a href="#risks_withdrawal_3" data-toggle="tab">110%</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content ">
+                    <div class="tab-pane" id="risks_withdrawal_1">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 919M</td>
+                                <td>8.49%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,540M</td>
+                                <td>5.77%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 168M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,758M</td>
+                                <td>87.12%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,087M</td>
+                                <td>8.30%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,298M</td>
+                                <td>36.63%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane active" id="risks_withdrawal_2">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,097M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,516M</td>
+                                <td>5.61%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 320M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,511M</td>
+                                <td>83.43%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,417M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,027M</td>
+                                <td>35.13%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="risks_withdrawal_3">
+                        <table class="table">
+                            <tr class="active">
+                                <th>T20</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 905M</td>
+                                <td>8.14%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,492M</td>
+                                <td>5.45%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>SPWL</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 168M</td>
+                                <td>8.00%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 2,511M</td>
+                                <td>83.43%</td>
+                            </tr>
+                            <tr class="active">
+                                <th>Total</th>
+                                <th>Profit before tax</th>
+                                <th>Profit margin</th>
+                            </tr>
+                            <tr>
+                                <td>Before Program</td>
+                                <td>Č 1,074M</td>
+                                <td>8.09%</td>
+                            </tr>
+                            <tr>
+                                <td>After Program</td>
+                                <td>Č 5,003M</td>
+                                <td>35.03%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="risks_h_1">
+                        <h3 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#risks_c_1"
+                               aria-expanded="true" aria-controls="risks_c_1">
+                                Other Risks
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="risks_c_1" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="risks_h_1">
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 10%">&nbsp;</th>
+                                        <th style="width: 30%">High Severity</th>
+                                        <th style="width: 30%">Medium Severity</th>
+                                        <th style="width: 30%">Low Severity</th>
+                                </tr>
+                                <tr>
+                                    <th>High Prob.</th>
+                                        <td style="background-color: #ef9a9a">Low Effectiveness/Engagement</td>
+                                        <td style="background-color: #ffab91">Budget Overruns</td>
+                                        <td style="background-color: #ffcc80">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <th>Medium Prob.</th>
+                                        <td style="background-color: #ffab91">Adverse Selection</td>
+                                        <td style="background-color: #ffcc80">Data Security</td>
+                                        <td style="background-color: #e6ee9c">Equity Concerns</td>
+                                </tr>
+                                <tr>
+                                    <th>Low Prob.</th>
+                                        <td style="background-color: #ffcc80">Regulatory Changes</td>
+                                        <td style="background-color: #e6ee9c">Model Risk</td>
+                                        <td style="background-color: #a5d6a7">Increase in Risky Behaviours</td>
+                                </tr>
+                                
+                            </table>
+                                
+                                
+                            <table class="table">
+                                <tr class="active">
+                                    <th>Risk</th>
+                                    <th>Impact</th>
+                                    <th>Mitigation</th>
+                                </tr>
+                                <tr>
+                                    <td>Low Engagement or Effectiveness</td>
+                                    <td>Looking at a sensitivity analysis for
+                                        the projected mortality reduction
+                                        from smoking, we expect a total
+                                        profit margin of 12% with a lower
+                                        mortality reduction from the
+                                        program, but a 100% profit margin
+                                        with a higher mortality reduction.
+                                        Quantitative details are in the
+                                        Sensitivity Analysis section.
+                                    </td>
+                                    <td>We suggest implementing the program
+                                        with an initial limited trial to observe data
+                                        and allow for participant feedback. This
+                                        will allow us to make necessary
+                                        adjustments to the program (such as larger
+                                        incentives) that will ensure a suitable
+                                        engagement rate is achieved and to meet
+                                        the projected estimates in terms of
+                                        expenses and participation. Furthermore,
+                                        data obtained during this phase can be used
+                                        for targeted advertising tailored to specific
+                                        demographic segments to further increase
+                                        engagement and participation.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Adverse Selection</td>
+                                    <td>Results due to the possibility that
+                                        individuals that are already
+                                        motivated to lead healthy lifestyles
+                                        will engage with the program
+                                        significantly more than those less
+                                        motivated to lead a healthy
+                                        lifestyle, leading to a skewed risk
+                                        pool with a disproportionate
+                                        number of high-risk individuals. It
+                                        is very possible that SuperLife could end up providing grocery
+                                        vouchers to families already eating
+                                        healthy.
+                                    </td>
+                                    <td>To mitigate this risk, the app will provide
+                                        personalised services based on the
+                                        individual policyholder and their
+                                        condition. There will be various indicators
+                                        such as BMI, current diet and levels of
+                                        physical activity which will influence the
+                                        target physical health levels for that
+                                        specific policyholder. This will maintain
+                                        achievable goals and motivation to continue making use of the features, thus
+                                        preventing a skewed risk pool.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Increase in Risky Behaviour</td>
+                                    <td>Could occur with customers
+                                        looking to take advantage of the
+                                        cash-backed program incentives.
+                                        With the smoking cessation
+                                        offering cash rewards of up to
+                                        Č1500, it is very possible that
+                                        individuals may begin smoking in
+                                        an effort to receive an easy cash
+                                        payout.
+                                    </td>
+                                    <td>To reduce this risk there will be specific
+                                        criteria introduced to ensure all
+                                        policyholders are reaching minimum
+                                        participation levels, for example meeting
+                                        certain indicators of physical wellbeing or
+                                        protein intakes to successfully continue
+                                        reaping all the benefits of the program.
+                                        These indicators will be monitored by a
+                                        team to ensure that any suspicious or
+                                        abnormal behaviour is investigated to
+                                        prevent any exploitation of the reward
+                                        system. Furthermore, any abnormally
+                                        severe changes in health conditions will
+                                        also be reported to health authorities to
+                                        ensure policyholder health and wellbeing.
+                                        This prevention system will act as a
+                                        deterrent to any policyholder from abusing
+                                        their health to profit from the program
+                                        incentives.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Data Security</td>
+                                    <td>Collection of sensitive data from
+                                        the incentives raises legal concerns
+                                        about the protection of the data,
+                                        along with the need to meet the
+                                        regulatory requirements (such as
+                                        General Data Regulation
+                                        Protection) to collect and store the
+                                        data. Any mishandling of the data
+                                        could lead to severe legal, financial,
+                                        and reputational risks against the
+                                        insurer.
+                                    </td>
+                                    <td>To mitigate and remove this risk, the
+                                        program should be developed in-house
+                                        with SuperLife’s IT team along with the
+                                        implementation of cybersecurity
+                                        measures. This ensures that the data is
+                                        being stored in a secure way that can be
+                                        completely controlled and maintained by
+                                        SuperLife, thereby removing any risks
+                                        associated with external storage and data
+                                        handling. The program should also be
+                                        approved by SuperLife’s legal department
+                                        to ensure that all regulatory requirements
+                                        related to data handling are being met. The
+                                        program will also implement specific
+                                        security features such as multiple factor
+                                        authentication to prevent any physical
+                                        breaches of privacy from the
+                                        policyholder’s side.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Equity Concerns</td>
+                                    <td>The possibility of
+                                        disproportionately affecting certain
+                                        demographics with differing
+                                        amounts of access to resources. Vouchers provided to grocery
+                                        stores that may not have many
+                                        locations in lower-income areas
+                                        could result in exacerbating any
+                                        disparities in healthcare outcomes.
+                                    </td>
+                                    <td>To reduce this concern, SuperLife will
+                                        proactively create partnerships with a
+                                        wider range of grocery stores, as well as
+                                        offer digital vouchers redeemable online to help mitigate access issues and
+                                        ensure
+                                        benefits are equally accessible across all
+                                        demographics.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Regulatory Changes</td>
+                                    <td>Changes within the health and life
+                                        insurance industry, as well as data
+                                        protection regulations could affect
+                                        program compliance and operation.
+                                        New regulations may introduce
+                                        stricter compliance requirements
+                                        which would affect program costs,
+                                        structure, and data management
+                                        practices. For example, changes in
+                                        privacy laws could necessitate
+                                        adjustments in how participant data
+                                        is collected and used.
+                                        Modifications in health insurance
+                                        regulations may affect eligibility
+                                        criteria, incentive offerings, or
+                                        program benefits.
+                                    </td>
+                                    <td>To reduce this risk, a team will regularly
+                                        monitor the regulatory landscapes and
+                                        implement proactive adjustments to the
+                                        program to ensure ongoing compliance.
+                                        Regular compliance audits will be done to
+                                        evaluate the program’s adherence to
+                                        current health insurance and data
+                                        protection regulations. This proactive
+                                        approach facilitates timely adjustments
+                                        before external audits or regulatory
+                                        inquiries.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Budget Overruns</td>
+                                    <td>Occurs when implementing and
+                                        maintaining the health incentive
+                                        program where costs exceeding
+                                        initial projections due to
+                                        unforeseen expenses or the need
+                                        for additional investments in
+                                        technology and security to ensure
+                                        the program's success and
+                                        compliance. These issues could
+                                        result in a strain on SuperLife's
+                                        financial resources, impacting its
+                                        overall profitability and
+                                        operational efficiency.
+                                    </td>
+                                    <td>To mitigate this risk, a dedicated financial
+                                        management team will be assigned
+                                        specifically to prepare budget forecasts
+                                        and prepare for all potential expenses and
+                                        circumstances. Furthermore, regular
+                                        financial audits will be done to monitor
+                                        and adjust expenditures internally, as well
+                                        as through third parties.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Model Risk</td>
+                                    <td>Our models have used mortality
+                                        from the in-force dataset and
+                                        mortality tables provided by
+                                        SuperLife. However, these
+                                        mortality values may not account
+                                        enough for unforeseen events
+                                        (such as COVID-19). This can lead
+                                        to inaccurate mortality values thus inaccurate premium and profit
+                                        calculations.
+                                    </td>
+                                    <td>To mitigate this risk, sensitivity analysis
+                                        should be employed. This allows for profit
+                                        calculations for different mortalities
+                                        providing a more holistic overview on
+                                        profits.
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row" id="files">
+            <h2>Files</h2>
+            <ul>
+                <li>Report: <a
+                    href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/Aspiring%20Actuaries%20Report.pdf">Aspiring
+                    Actuaries Report.pdf</a></li>
+                <li>Excel Model: <a
+                    href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/model_pricing.xlsm">model_pricing.xlsm</a>
+                </li>
+                <li>R: <a
+                    href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/tree/main/R%20code">Folder</a>
+
+                    <ul>
+                        <li><a
+                            href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/R%20code/EDA.Rmd">EDA.Rmd</a>:
+                            Exploratory data analysis on the inforce dataset.
+                        </li>
+                        <li><a
+                            href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/R%20code/Lapse%20rates.Rmd">Lapse
+                            rates.Rmd</a>: Calculations of the lapse rates for each type of policyholder using the
+                            inforce
+                            dataset, output stored in <a
+                                href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/Data/Lapse%20Rates%20from%20Data.xlsx">Lapse
+                                Rates from Data.xlsx.</a>
+                        </li>
+                        <li><a
+                            href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/R%20code/Mortality.Rmd">Mortality.Rmd</a>:
+                            Calculations of mortality rates for each type of policyholder using the inforce dataset,
+                            output
+                            stored in <a
+                                href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/Data/Mortality%20Rates%20from%20data.xlsx">Mortality
+                                Rates from data.xlsx.</a>
+                        </li>
+                        <li><a
+                            href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/R%20code/Policy%20Count.Rmd">Policy
+                            count.Rmd</a>: Counts the number of each type of policyholder with each level of benefit in
+                            the
+                            inforce dataset, output stored in <a
+                                href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/blob/main/Data/Policy%20count.xlsx">Policy
+                                count.xlsx.</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+            
+        <div class="row">
+                <a href="https://github.com/Actuarial-Control-Cycle-T1-2024/group-page-showcase-aspiring-actuaries/" class="btn btn-primary btn-lg btn-block"><i class="fa fa-github"></i> View on GitHub</a>
+            </div>
+                
+        <div style="margin-top: 200px"></div>
+
+    </div>
+</div>
+<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'>
+</script>
+<script src="web/script.js"></script>
+
+</body>
+</html>
