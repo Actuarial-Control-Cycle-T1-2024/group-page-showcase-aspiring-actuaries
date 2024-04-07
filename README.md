@@ -6,7 +6,13 @@ Landing page: https://actuarial-control-cycle-t1-2024.github.io/group-page-showc
 
 ## Background and program
 
-We have been asked to develop a health incentive program that SuperLife can pair with its longer- term life insurance products. SuperLife are looking to improve its policyholders’ expected mortality once the policyholder has purchased an insurance policy. We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives.
+SuperLife is one of the major life insurance companies of Lumaria. We have been asked to develop a health incentive program that SuperLife can pair with its longer-term life insurance products. SuperLife are looking to improve its policyholders’ expected mortality once the policyholder has purchased an insurance policy. Specifically, SuperLife's primary goals are:
+- Incentivise healthy behaviours through participation in the program
+- Decrease expected mortality
+- Increase product marketability and competitiveness
+- Add economic value to SuperLife
+
+We propose a health program that includes a smoking cessation program, a weight management program and cancer prevention initiatives. This proposal and insights have been delivered in a [report](Aspiring-Actuaries-Report.pdf)
 
 ## Key insights
 
