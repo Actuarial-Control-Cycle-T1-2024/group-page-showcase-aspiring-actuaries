@@ -2,7 +2,7 @@
 
 **Aspiring Actuaries**: Jinil Patel, Melissa Renard, Jason Zhang, Ricky Zhang, Yuchi Zhang
 
-Landing page: https://actuarial-control-cycle-t1-2024.github.io/group-page-showcase-aspiring-actuaries/
+[**Landing page**](https://actuarial-control-cycle-t1-2024.github.io/group-page-showcase-aspiring-actuaries/)
 
 ## Background and program
 
